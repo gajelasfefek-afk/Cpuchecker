@@ -1,32 +1,42 @@
-CYAN='\033[0;36m'
-HIJAU='\033[0;32m'
-PUTIH='\033[0m'
+#!/bin/sh
 
-# --- BANNER GELO ---
-clear
-echo -e "${CYAN}"
-echo "  ____  _     _                 ____       _   "
-echo " |  _ \(_)_ _| |__   __ _  ___ | __ )  ___| |_ "
-echo " | |_) | | '_ \ '_ \ / _' |/ _ \|  _ \ / _ \ __|"
-echo " |  _ <| | |_) | | | | (_| | (_) | |_) | (_) | |_ "
-echo " |_| \_\_| .__/|_| |_|\__,_|\___/|____/ \___/ \__|"
-echo "         |_|                                       "
-echo -e "          [ Created by: Dragngentod ]"
-echo -e "${PUTIH}"
+# Banner DRAG (Versi Standar)
+echo " "
+echo "  ____   ____        _     ____ "
+echo " |  _ \ |  _ \      / \   / ___|"
+echo " | | | || |_) |    / _ \ | |  _ "
+echo " | |_| ||  _ <    / ___ \| |_| |"
+echo " |____/ |_| \_\  /_/   \_\\____|"
+echo "      [ DEVELOPED BY DRAGNGENTOD ]"
+echo "------------------------------------"
 
-echo -e "${HIJAU}[*] Memulai proses instalasi...${PUTIH}"
+# Link APK
+LINK="https://files.catbox.moe/9c3avs.apk"
+FILE="drag_bot.apk"
 
-# Link Catbox lu yang tadi
-LINK_APK="https://files.catbox.moe/9c3avs.apk"
-
-# Proses Download
-wget -q --show-progress $LINK_APK -O bot_roblox.apk
-
-# Proses Install
-if [ -f "bot_roblox.apk" ]; then
-    echo -e "${HIJAU}[+] Download selesai! Menginstal...${PUTIH}"
-    pm install -r bot_roblox.apk
-    rm bot_roblox.apk
-    echo -e "${HIJAU}[!] BERHASIL! Selamat nge-bot, Cuk.${PUTIH}"
+echo "[*] Downloading..."
+# Pake curl atau wget (biar salah satu pasti jalan)
+if command -v wget > /dev/null; then
+    wget -q $LINK -O $FILE
 else
-    echo -e "${MERAH}[X] Gagal download!${PUTIH}"
+    curl -L $LINK -o $FILE
+fi
+
+if [ -f "$FILE" ]; then
+    echo "[+] Download Success!"
+    echo "[-] Installing APK..."
+    # Perintah install standar
+    pm install -r $FILE
+    
+    if [ $? -eq 0 ]; then
+        echo "[!] INSTALL SUCCESS!"
+        rm $FILE
+    else
+        echo "[X] INSTALL FAILED!"
+    fi
+else
+    echo "[X] DOWNLOAD FAILED!"
+fi
+
+echo "------------------------------------"
+echo "Done!"
