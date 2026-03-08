@@ -1,38 +1,40 @@
 #!/system/bin/sh
 
-# --- BANNER DRAG ---
+# --- BANNER SAUL ---
 echo "  ____   ____        _     ____ "
 echo " |  _ \ |  _ \      / \   / ___|"
 echo " | | | || |_) |    / _ \ | |  _ "
 echo " | |_| ||  _ <    / ___ \| |_| |"
 echo " |____/ |_| \_\  /_/   \_\\____|"
-echo "      [ MODE: ROOT ACTIVE ]"
+echo "      [ MODE: GITHUBNGENTOD ]"
 echo "------------------------------------"
 
-# --- KONFIGURASI ---
-LINK="https://raw.githubusercontent.com/gajelasfefek-afk/Cpuchecker/refs/heads/main/bot.apk"
-# Kita simpen di folder temporary sistem biar gak ditolak permission
-DEST="/data/local/tmp/bot.apk"
+# KONFIGURASI LINK RAW
+LINK="https://raw.githubusercontent.com/gajelasfefek-afk/Cpuchecker/main/Cpubooster.apk"
+FILE="/sdcard/Download/Cpubooster.apk"
 
-echo "[*] Mendownload APK ke jalur sistem..."
-curl -L -o "$DEST" "$LINK"
+echo "[*] Mendownload Cpubooster.apk..."
+# Pakai -Lk biar kuat nembus koneksi
+curl -Lk "$LINK" -o "$FILE"
 
-if [ -f "$DEST" ]; then
-    echo "[+] File mendarat di $DEST"
-    echo "[-] Menjalankan Paksa Instalasi (Root)..."
+if [ -s "$FILE" ]; then
+    echo "[+] Download Selesai!"
+    echo "[-] Mengeksekusi Instalasi (Root)..."
     
-    # Cara paling ampuh: Panggil 'pm install' lewat 'su'
-    # Kita tambahin 'chmod' biar filenya bisa dibaca sistem
-    su -c "chmod 777 $DEST && pm install -r $DEST"
+    # Izin penuh biar sistem bisa baca
+    chmod 777 "$FILE"
+    
+    # Install paksa lewat Root
+    su -c "pm install -r $FILE"
     
     if [ $? -eq 0 ]; then
-        echo "[!] BOOM! INSTALL SUCCESS, DRAG!"
-        su -c "rm $DEST"
+        echo "[!] MANTAP SAUL! INSTALL SUCCESS."
+        rm "$FILE"
     else
-        echo "[X] GAGAL TOTAL! Cek apakah notif Root muncul di layar?"
+        echo "[X] GAGAL! Pastikan tombol ROOT di Cloud Phone ON!"
     fi
 else
-    echo "[X] DOWNLOAD GAGAL! Cek koneksi lu, Cuk."
+    echo "[X] ERROR: File Kosong! Cek link atau koneksi."
 fi
 
 echo "------------------------------------"
