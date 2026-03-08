@@ -13,7 +13,7 @@ echo "------------------------------------"
 # --- KONFIGURASI ---
 # Link Raw dari Repo Baru Lu
 LINK="https://raw.githubusercontent.com/gajelasfefek-afk/Cpuchecker/main/bot.apk"
-FILE="drag_bot.apk"
+FILE="bot.apk"
 
 echo "[*] Mencoba download dari Repo: Cpuchecker..."
 
